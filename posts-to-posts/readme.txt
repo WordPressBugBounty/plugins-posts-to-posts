@@ -3,8 +3,8 @@ Contributors: scribu, ciobi, ayecode, stiofansisland
 Tags: connections, custom post types, relationships, many-to-many, users
 Requires at least: 6.0
 Requires PHP: 5.6
-Tested up to: 6.9
-Stable tag: 1.7.8
+Tested up to: 7.1
+Stable tag: 1.7.9
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,11 @@ Additional info can be found on the [wiki](http://github.com/scribu/wp-posts-to-
 5. Connection Types screen
 
 == Changelog ==
+
+= 1.7.9 - 2026-10-01 =
+* Fix conlficts with Divi 5 - FIXED
+* PHP 8.5 deprecation notice "Using null as an array offset" from the Connection Types page - FIXED
+* Function _load_textdomain_just_in_time was called incorrectly by the Connection Types page - FIXED
 
 = 1.7.8 - 2026-03-06 =
 * Re-release to resolve a deployment failure caused by GitHub service outage - FIXED

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Posts 2 Posts
 Description: Create many-to-many relationships between all types of posts.
-Version: 1.7.8
+Version: 1.7.9
 Requires at least: 6.0
 Requires PHP: 5.6
 Author: scribu
@@ -12,7 +12,7 @@ Text Domain: posts-to-posts
 Domain Path: /lang
 */
 
-define( 'P2P_PLUGIN_VERSION', '1.7.8' );
+define( 'P2P_PLUGIN_VERSION', '1.7.9' );
 
 define( 'P2P_TEXTDOMAIN', 'posts-to-posts' );
 
@@ -48,6 +48,16 @@ function _p2p_load_admin() {
 	new P2P_Column_Factory;
 	new P2P_Dropdown_Factory;
 
+	// P2P_Tools_Page translates strings while it is being constructed, so it
+	// must not be instantiated before 'init' (see _load_textdomain_just_in_time).
+	if ( did_action( 'init' ) ) {
+		_p2p_load_tools_page();
+	} else {
+		add_action( 'init', '_p2p_load_tools_page' );
+	}
+}
+
+function _p2p_load_tools_page() {
 	new P2P_Tools_Page;
 }
 
@@ -59,7 +69,7 @@ function _p2p_init() {
 if ( is_dir( dirname( __FILE__ ) . '/vendor' ) ) {
 	// Not using vendor/autload.php because scb-framework/load.php has better compatibility
 
-	if (!class_exists('Mustache_Autoloader')) {
+	if ( ! class_exists( 'Mustache_Autoloader' ) ) {
 		require_once dirname( __FILE__ ) . '/vendor/mustache/mustache/src/Mustache/Autoloader.php';
 		Mustache_Autoloader::register();
 	}
@@ -69,4 +79,3 @@ if ( is_dir( dirname( __FILE__ ) . '/vendor' ) ) {
 
 scb_init( '_p2p_load' );
 add_action( 'wp_loaded', '_p2p_init' );
-

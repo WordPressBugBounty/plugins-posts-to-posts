@@ -33,7 +33,9 @@ abstract class scbAdminPage {
 	protected $option_name;
 
 	// l10n
-	protected $textdomain;
+	// Defaults to an empty string rather than null: passing null to __() ends up
+	// being used as an array offset, which is deprecated as of PHP 8.5.
+	protected $textdomain = '';
 
 
 //  ____________REGISTRATION COMPONENT____________
@@ -262,7 +264,7 @@ abstract class scbAdminPage {
 	 */
 	public function admin_msg( $msg = '', $class = 'updated' ) {
 		if ( empty( $msg ) ) {
-			$msg = __( 'Settings <strong>saved</strong>.', $this->textdomain );
+			$msg = __( 'Settings <strong>saved</strong>.', ( $this->textdomain ? $this->textdomain : 'posts-to-posts' ) );
 		}
 
 		echo scb_admin_notice( $msg, $class );
@@ -519,7 +521,7 @@ abstract class scbAdminPage {
 			'menu_title'            => $this->args['page_title'],
 			'page_slug'             => '',
 			'nonce'                 => '',
-			'action_link'           => __( 'Settings', $this->textdomain ),
+			'action_link'           => __( 'Settings', ( $this->textdomain ? $this->textdomain : 'posts-to-posts' ) ),
 			'admin_action_priority' => 10,
 		) );
 
